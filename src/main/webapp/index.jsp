@@ -16,11 +16,11 @@
     <a href="">退出</a>
 </div>
 
-<h2>开通会员自动点亮前两个图标 || 开通心悦会员全部点亮</h2>
+<h2>开通会员自动点亮前两个图标 || 开通超级会员全部点亮</h2>
 <table style="width: 100%">
     <tr>
         <td colspan="2"><a href=""><b>会员(15点)</b></a></td>
-        <td colspan="3"><a href=""><b>心悦会员(30点)</b></a></td>
+        <td colspan="3"><a href=""><b>超级会员(30点)</b></a></td>
     </tr>
     <tr>
         <td>黄钻</td>
@@ -43,7 +43,6 @@
         <td><a href="">开通蓝钻(10点)</a></td>
         <td><a href="">开通黑钻(10点)</a></td>
     </tr>
-
 </table>
 
 <br/>
