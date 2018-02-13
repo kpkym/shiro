@@ -1,8 +1,8 @@
 package com.ou.service;
 
 import com.ou.bean.User;
-
-import java.util.List;
+import com.ou.exception.IllegalStringException;
+import com.ou.exception.HasUserException;
 
 public interface UserService {
 
@@ -10,8 +10,10 @@ public interface UserService {
      * @param username 用户名
      * @param password 用户密码
      * @return 数据库响应行数
+     * @throws IllegalStringException 非法字符串
+     * @throws HasUserException 存在当前用户
      */
-    int register(String username, String password);
+    int register(String username, String password) throws IllegalStringException, HasUserException;
 
     /**
      * @param username 需要查找的用户名
