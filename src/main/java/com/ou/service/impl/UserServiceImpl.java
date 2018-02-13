@@ -29,4 +29,13 @@ public class UserServiceImpl implements UserService {
         user.setPassword(md5hash);
         return userMapper.insertSelective(user);
     }
+
+    @Override
+    public User getUserByUsername(String username) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andUsernameEqualTo("username");
+        List<User> users = userMapper.selectByExample(userExample);
+        return users.size() == 0 ? null : users.get(0);
+    }
 }
