@@ -26,7 +26,6 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = (String) token.getPrincipal();
-        System.out.println("22222222");
         // 没有输入用户名 或则空用户名则返回空
         if (StringUtil.checkNullOrEmpty(username)) {
             return null;
@@ -40,7 +39,6 @@ public class MyRealm extends AuthorizingRealm {
         String salt = username;
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(username,
                 password, ByteSource.Util.bytes(salt), getName());
-        System.out.println("helloworld");
         return authenticationInfo;
     }
 
