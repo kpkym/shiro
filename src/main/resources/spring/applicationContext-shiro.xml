@@ -21,7 +21,7 @@
         <property name="filterChainDefinitions">
             <value>
                 <!--/logout = logout-->
-                <!--/** = authc-->
+                /** = authc
             </value>
         </property>
     </bean>
