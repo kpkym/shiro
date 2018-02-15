@@ -14,10 +14,10 @@
 
 <h1>登录页面</h1>
 
-<form action="">
-    账号：<input type="text"/>
+<form action="/login" method="post">
+    账号：<input type="text" name="username" />
     <br />
-    密码：<input type="text"/>
+    密码：<input type="text" name="password" />
     <br />
     <input type="submit"/>
 </form>
