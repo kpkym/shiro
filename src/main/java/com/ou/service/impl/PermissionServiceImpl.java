@@ -18,12 +18,12 @@ public class PermissionServiceImpl implements PermissionService {
     PermissionMapper permissionMapper;
 
     @Override
-    public String getPermission(String permission) {
+    public Permission getPermission(String permission) {
         PermissionExample example = new PermissionExample();
         PermissionExample.Criteria criteria = example.createCriteria();
         criteria.andPermissionEqualTo(permission);
         List<Permission> permissions = permissionMapper.selectByExample(example);
 
-        return permissions.size()==0 ? null : permissions.get(0).getPermission();
+        return permissions.size()==0 ? null : permissions.get(0);
     }
 }
