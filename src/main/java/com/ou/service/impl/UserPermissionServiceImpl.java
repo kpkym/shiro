@@ -33,10 +33,9 @@ public class UserPermissionServiceImpl implements UserPermissionService {
 
     @Override
     public int insertUserPermission(PermissionEnum permission) {
-        // Subject subject = SecurityUtils.getSubject();
-        // String principal = (String)subject.getPrincipal();
-        // User user = userService.getUserByUsername(principal);
-        User user = userService.getUserByUsername("123");
+        Subject subject = SecurityUtils.getSubject();
+        String principal = (String)subject.getPrincipal();
+        User user = userService.getUserByUsername(principal);
         Permission perm = permissionService.getPermission(permission.getPermission());
 
         Integer uid = user.getUid();
