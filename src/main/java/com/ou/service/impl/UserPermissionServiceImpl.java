@@ -4,6 +4,7 @@ import com.ou.bean.Permission;
 import com.ou.bean.User;
 import com.ou.bean.UserPermission;
 import com.ou.dao.UserPermissionMapper;
+import com.ou.permission.PermissionEnum;
 import com.ou.service.PermissionService;
 import com.ou.service.UserPermissionService;
 import com.ou.service.UserService;
@@ -31,11 +32,12 @@ public class UserPermissionServiceImpl implements UserPermissionService {
     PermissionService permissionService;
 
     @Override
-    public int insertUserPermission(String permission) {
-        Subject subject = SecurityUtils.getSubject();
-        String principal = (String)subject.getPrincipal();
-        User user = userService.getUserByUsername(principal);
-        Permission perm = permissionService.getPermission(permission);
+    public int insertUserPermission(PermissionEnum permission) {
+        // Subject subject = SecurityUtils.getSubject();
+        // String principal = (String)subject.getPrincipal();
+        // User user = userService.getUserByUsername(principal);
+        User user = userService.getUserByUsername("123");
+        Permission perm = permissionService.getPermission(permission.getPermission());
 
         Integer uid = user.getUid();
         Integer pid = perm.getPid();

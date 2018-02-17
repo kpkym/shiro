@@ -1,5 +1,7 @@
 package com.ou.service;
 
+import com.ou.permission.PermissionEnum;
+
 /**
  * @author: kpkym
  * date: 2018/2/15
@@ -12,5 +14,5 @@ public interface UserPermissionService {
      * @param permission 要插入的权限
      * @return 返回数据库影响行数
      */
-    int insertUserPermission(String permission);
+    int insertUserPermission(PermissionEnum permission);
 }
