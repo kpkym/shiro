@@ -1,6 +1,10 @@
 package com.ou.service;
 
+import com.ou.bean.Permission;
 import com.ou.permission.PermissionEnum;
+
+import java.util.List;
+
 
 /**
  * @author: kpkym
@@ -15,4 +19,10 @@ public interface UserPermissionService {
      * @return 返回数据库影响行数
      */
     int insertUserPermission(PermissionEnum permission);
+
+
+    /**
+     * @return 返回该用户所拥有的权限列表
+     */
+    List<Permission> listPermission();
 }

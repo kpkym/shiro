@@ -3,6 +3,8 @@ package com.ou.service.impl;
 import com.ou.bean.Permission;
 import com.ou.bean.User;
 import com.ou.bean.UserPermission;
+import com.ou.bean.UserPermissionExample;
+import com.ou.dao.PermissionMapper;
 import com.ou.dao.UserPermissionMapper;
 import com.ou.permission.PermissionEnum;
 import com.ou.service.PermissionService;
@@ -13,8 +15,10 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: kpkym
@@ -26,6 +30,8 @@ public class UserPermissionServiceImpl implements UserPermissionService {
 
     @Autowired
     UserPermissionMapper userPermissionMapper;
+    @Autowired
+    PermissionMapper permissionMapper;
     @Autowired
     UserService userService;
     @Autowired
@@ -50,5 +56,28 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         userPermission.setPid(pid);
         userPermission.setExpireTime(expireTime);
         return userPermissionMapper.insertSelective(userPermission);
+    }
+
+    @Override
+    public List<Permission> listPermission() {
+        Subject subject = SecurityUtils.getSubject();
+        String principal = (String)subject.getPrincipal();
+        User user = userService.getUserByUsername(principal);
+
+        UserPermissionExample example = new UserPermissionExample();
+        UserPermissionExample.Criteria criteria = example.createCriteria();
+        criteria.andUidEqualTo(user.getUid());
+        List<UserPermission> userPermissions = userPermissionMapper.selectByExample(example);
+
+        // 得到Permission
+        List<Permission> result = new ArrayList<>(userPermissions.size());
+        for (UserPermission up : userPermissions) {
+            // 如果该权限没有过期 则加入权限列表
+            if (up.getExpireTime().compareTo(new Date()) > 0) {
+                Permission permission = permissionMapper.selectByPrimaryKey(up.getPid());
+                result.add(permission);
+            }
+        }
+        return result;
     }
 }
