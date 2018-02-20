@@ -26,7 +26,6 @@ public class PermissionServiceImpl implements PermissionService {
         PermissionExample.Criteria criteria = example.createCriteria();
         criteria.andPermissionEqualTo(permissionEnum.getPermission());
         List<Permission> permissions = permissionMapper.selectByExample(example);
-
-        return permissions.size()==0 ? null : permissions.get(0);
+        return permissions.get(0);
     }
 }

@@ -26,6 +26,6 @@ public class RoleServiceImpl implements RoleService {
         RoleExample.Criteria criteria = example.createCriteria();
         criteria.andRoleEqualTo(role.name());
         List<Role> roles = roleMapper.selectByExample(example);
-        return roles.size()==0 ? null : roles.get(0);
+        return roles.get(0);
     }
 }
