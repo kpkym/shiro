@@ -37,7 +37,7 @@ public class MyRealm extends AuthorizingRealm {
         }
         String password = user.getPassword();
         String salt = username;
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(username,
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user,
                 password, ByteSource.Util.bytes(salt), getName());
         return authenticationInfo;
     }

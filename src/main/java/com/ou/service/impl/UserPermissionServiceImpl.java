@@ -11,6 +11,7 @@ import com.ou.service.PermissionService;
 import com.ou.service.UserPermissionService;
 import com.ou.service.UserService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,7 @@ public class UserPermissionServiceImpl implements UserPermissionService {
     @Override
     public int insertUserPermission(PermissionEnum permission) {
         Subject subject = SecurityUtils.getSubject();
-        String principal = (String)subject.getPrincipal();
-        User user = userService.getUserByUsername(principal);
+        User user = (User)subject.getPrincipal();
         Permission perm = permissionService.getPermission(permission);
 
         Integer uid = user.getUid();
@@ -60,8 +60,7 @@ public class UserPermissionServiceImpl implements UserPermissionService {
     @Override
     public List<Permission> listPermission() {
         Subject subject = SecurityUtils.getSubject();
-        String principal = (String)subject.getPrincipal();
-        User user = userService.getUserByUsername(principal);
+        User user = (User)subject.getPrincipal();
 
         UserPermissionExample example = new UserPermissionExample();
         UserPermissionExample.Criteria criteria = example.createCriteria();
