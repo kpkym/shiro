@@ -1,6 +1,7 @@
 package com.ou.service;
 
 import com.ou.bean.Permission;
+import com.ou.permission.PermissionEnum;
 
 /**
  * @author: kpkym
@@ -8,10 +9,9 @@ import com.ou.bean.Permission;
  * time: 13:10
  */
 public interface PermissionService {
-
     /**
-     * @param permission 需要的权限
+     * @param permissionEnum 需要的权限
      * @return 如果有此权限则返回  否则返回空
      */
-    Permission getPermission(String permission);
+    Permission getPermission(PermissionEnum permissionEnum);
 }

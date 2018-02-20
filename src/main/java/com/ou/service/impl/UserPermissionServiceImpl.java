@@ -27,7 +27,6 @@ import java.util.List;
  */
 @Service
 public class UserPermissionServiceImpl implements UserPermissionService {
-
     @Autowired
     UserPermissionMapper userPermissionMapper;
     @Autowired
@@ -42,7 +41,7 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         Subject subject = SecurityUtils.getSubject();
         String principal = (String)subject.getPrincipal();
         User user = userService.getUserByUsername(principal);
-        Permission perm = permissionService.getPermission(permission.getPermission());
+        Permission perm = permissionService.getPermission(permission);
 
         Integer uid = user.getUid();
         Integer pid = perm.getPid();
