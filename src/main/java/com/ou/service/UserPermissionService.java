@@ -12,14 +12,10 @@ import java.util.List;
  * time: 16:03
  */
 public interface UserPermissionService {
-
     /**
-     * 根据principal插入权限
-     * @param permission 要插入的权限
-     * @return 返回数据库影响行数
+     * @param permission 需要续费的权限
      */
-    int insertUserPermission(PermissionEnum permission);
-
+    void renewal(PermissionEnum permission);
 
     /**
      * @return 返回该用户所拥有的权限列表
