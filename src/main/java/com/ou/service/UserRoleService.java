@@ -1,8 +1,6 @@
 package com.ou.service;
 
-import com.ou.bean.Permission;
 import com.ou.bean.Role;
-import com.ou.permission.PermissionEnum;
 import com.ou.permission.RoleEnum;
 
 import java.util.List;
@@ -14,12 +12,9 @@ import java.util.List;
  */
 public interface UserRoleService {
     /**
-     * 根据principal插入权限
-     * @param roleEnum 要插入的角色
-     * @return 返回数据库影响行数
+     * @param permission 需要续费的权限
      */
-    int insertUserRole(RoleEnum roleEnum);
-
+    void renewal(RoleEnum roleEnum);
 
     /**
      * @return 返回该用户所拥有的角色列表

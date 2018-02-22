@@ -1,13 +1,9 @@
 package com.ou.service.impl;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.ou.bean.*;
-import com.ou.dao.PermissionMapper;
 import com.ou.dao.RoleMapper;
-import com.ou.dao.UserPermissionMapper;
 import com.ou.dao.UserRoleMapper;
 import com.ou.permission.RoleEnum;
-import com.ou.service.PermissionService;
 import com.ou.service.RoleService;
 import com.ou.service.UserRoleService;
 import com.ou.service.UserService;
@@ -38,23 +34,40 @@ public class UserRoleServiceImpl implements UserRoleService {
     RoleMapper roleMapper;
 
     @Override
-    public int insertUserRole(RoleEnum roleEnum) {
+    public void renewal(RoleEnum roleEnum) {
         Subject subject = SecurityUtils.getSubject();
         User user = (User)subject.getPrincipal();
-        Role role = roleService.getRole(roleEnum);
 
+        Role role = roleService.getRole(roleEnum);
         Integer uid = user.getUid();
         Integer rid = role.getRid();
+
+        UserRoleExample example = new UserRoleExample();
+        UserRoleExample.Criteria criteria = example.createCriteria();
+        criteria.andUidEqualTo(uid);
+        criteria.andRidEqualTo(rid);
+
+        List<UserRole> userRoles = userRoleMapper.selectByExample(example);
+        // 如果没有此权限就插入
+        // 否则更新过期时间
+        if (userRoles.size() == 0
+                || userRoles.get(0).getExpireTime().compareTo(new Date()) < 0) {
+            insertUserRole(uid, rid);
+            return;
+        }
+
+        // 否则更新此数据
+        UserRole userRole = userRoles.get(0);
+
         Calendar calendar = Calendar.getInstance();
+        // 设置原本过期时间
+        calendar.setTime(userRole.getExpireTime());
         // 过期时间在当前时间上增加100秒
         calendar.add(Calendar.SECOND, 100);
         Date expireTime = calendar.getTime();
-
-        UserRole userRole = new UserRole();
-        userRole.setUid(uid);
-        userRole.setRid(rid);
+        // 更新过期时间
         userRole.setExpireTime(expireTime);
-        return userRoleMapper.insertSelective(userRole);
+        userRoleMapper.updateByPrimaryKey(userRole);
     }
 
     @Override
@@ -77,5 +90,18 @@ public class UserRoleServiceImpl implements UserRoleService {
             }
         }
         return result;
+    }
+
+    private int insertUserRole(Integer uid, Integer rid) {
+        Calendar calendar = Calendar.getInstance();
+        // 过期时间在当前时间上增加100秒
+        calendar.add(Calendar.SECOND, 100);
+        Date expireTime = calendar.getTime();
+
+        UserRole userRole = new UserRole();
+        userRole.setUid(uid);
+        userRole.setRid(rid);
+        userRole.setExpireTime(expireTime);
+        return userRoleMapper.insertSelective(userRole);
     }
 }
