@@ -11,7 +11,6 @@ import com.ou.service.PermissionService;
 import com.ou.service.UserPermissionService;
 import com.ou.service.UserService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,7 +49,8 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         criteria.andPidEqualTo(pid);
 
         List<UserPermission> userPermissions = userPermissionMapper.selectByExample(example);
-        // 如果没有此权限 或者此权限已过期则插入新数据
+        // 如果没有此权限就插入
+        // 否则更新过期时间
         if (userPermissions.size() == 0
                 || userPermissions.get(0).getExpireTime().compareTo(new Date()) < 0) {
             insertUserPermission(uid, pid);
