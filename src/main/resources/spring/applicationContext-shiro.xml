@@ -17,14 +17,25 @@
         <property name="loginUrl" value="/login"/>
         <!--没有权限时跳转页面-->
         <property name="unauthorizedUrl" value="/refuse.jsp"/>
+        <!--自定义filter-->
+        <property name="filters">
+            <map>
+                <!-- 将自定义的FormAuthenticationFilter注入shiroFiler中 -->
+                <entry key="authc" value-ref="formAuthenticationFilter" />
+            </map>
+        </property>
         <!--过滤连定义, 从上往下顺序执行,一般将/**放在最下面-->
         <property name="filterChainDefinitions">
             <value>
-                <!--/logout = logout-->
+                /register = anon
+                /logout = logout
                 /** = authc
             </value>
         </property>
     </bean>
+
+    <!--自定义form认证过滤器-->
+    <bean id="formAuthenticationFilter" class="com.ou.shiro.MyFormAuthenticationFilter" />
 
     <!--securityManage-->
     <!-- 安全管理器 -->

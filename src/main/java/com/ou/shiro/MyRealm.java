@@ -26,10 +26,6 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = (String) token.getPrincipal();
-        // 没有输入用户名 或则空用户名则返回空
-        if (StringUtil.checkNullOrEmpty(username)) {
-            return null;
-        }
         User user = userService.getUserByUsername(username);
         // 没有此用户名则返回空
         if (null == user) {

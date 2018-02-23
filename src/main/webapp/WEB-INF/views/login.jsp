@@ -13,7 +13,7 @@
 <body>
 
 <h1>登录页面</h1>
-
+${msg}
 <form action="/login" method="post">
     账号：<input type="text" name="username" />
     <br />
