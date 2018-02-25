@@ -1,6 +1,8 @@
 package com.ou.shiro;
 
-import com.ou.bean.User;
+import com.ou.bean.*;
+import com.ou.service.RolePermissionService;
+import com.ou.service.UserRoleService;
 import com.ou.service.UserService;
 import com.ou.util.StringUtil;
 import org.apache.shiro.authc.AuthenticationException;
@@ -8,15 +10,23 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class MyRealm extends AuthorizingRealm {
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
+public class MyRealm extends AuthorizingRealm {
     @Autowired
     UserService userService;
+    @Autowired
+    UserRoleService userRoleService;
+    @Autowired
+    RolePermissionService rolePermissionService;
 
     @Override
     public String getName() {
@@ -40,6 +50,16 @@ public class MyRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        return null;
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        List<Role> roles = userRoleService.listRole();
+        List<Permission> permissions = rolePermissionService.listPermission(roles);
+        for (Role role : roles) {
+            authorizationInfo.addRole(role.getRole());
+        }
+        for (Permission permission : permissions) {
+            authorizationInfo.addStringPermission(permission.getPermission());
+        }
+
+        return authorizationInfo;
     }
 }
