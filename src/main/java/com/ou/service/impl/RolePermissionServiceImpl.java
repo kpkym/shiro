@@ -4,7 +4,6 @@ import com.ou.bean.Permission;
 import com.ou.bean.Role;
 import com.ou.bean.RolePermission;
 import com.ou.bean.RolePermissionExample;
-import com.ou.dao.PermissionMapper;
 import com.ou.dao.RolePermissionMapper;
 import com.ou.service.PermissionService;
 import com.ou.service.RolePermissionService;
@@ -29,9 +28,9 @@ public class RolePermissionServiceImpl implements RolePermissionService {
     @Override
     public List<Permission> listPermission(List<Role> roles) {
         List<Permission> result = new LinkedList<>();
-        RolePermissionExample example = new RolePermissionExample();
         // 查询出每个角色所拥有的权限
         for (Role role : roles) {
+            RolePermissionExample example = new RolePermissionExample();
             RolePermissionExample.Criteria criteria = example.createCriteria();
             criteria.andRidEqualTo(role.getRid());
             List<RolePermission> rolePermissions = rolePermissionMapper.selectByExample(example);
