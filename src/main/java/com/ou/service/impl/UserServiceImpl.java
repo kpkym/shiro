@@ -3,11 +3,13 @@ package com.ou.service.impl;
 import com.ou.bean.User;
 import com.ou.bean.UserExample;
 import com.ou.dao.UserMapper;
-import com.ou.exception.IllegalStringException;
 import com.ou.exception.HasUserException;
+import com.ou.exception.IllegalStringException;
 import com.ou.service.UserService;
 import com.ou.util.StringUtil;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,6 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     @Autowired
     UserMapper userMapper;
 
@@ -42,5 +43,13 @@ public class UserServiceImpl implements UserService {
         criteria.andUsernameEqualTo(username);
         List<User> users = userMapper.selectByExample(userExample);
         return users.size() == 0 ? null : users.get(0);
+    }
+
+    @Override
+    public User getUserByShiro() {
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User)subject.getPrincipal();
+
+        return user;
     }
 }

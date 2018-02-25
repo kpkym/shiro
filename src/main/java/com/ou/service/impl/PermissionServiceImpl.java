@@ -3,7 +3,6 @@ package com.ou.service.impl;
 import com.ou.bean.Permission;
 import com.ou.bean.PermissionExample;
 import com.ou.dao.PermissionMapper;
-import com.ou.permission.PermissionEnum;
 import com.ou.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,11 +20,7 @@ public class PermissionServiceImpl implements PermissionService {
     PermissionMapper permissionMapper;
 
     @Override
-    public Permission getPermission(PermissionEnum permissionEnum) {
-        PermissionExample example = new PermissionExample();
-        PermissionExample.Criteria criteria = example.createCriteria();
-        criteria.andPermissionEqualTo(permissionEnum.getPermission());
-        List<Permission> permissions = permissionMapper.selectByExample(example);
-        return permissions.get(0);
+    public Permission getPermissionByPrimaryKey(Integer pid) {
+        return permissionMapper.selectByPrimaryKey(pid);
     }
 }

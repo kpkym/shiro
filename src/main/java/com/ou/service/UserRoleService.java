@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface UserRoleService {
     /**
-     * @param permission 需要续费的权限
+     * @param roleEnum 需要续费的角色
      */
     void renewal(RoleEnum roleEnum);
 

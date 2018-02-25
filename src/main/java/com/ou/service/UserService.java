@@ -5,7 +5,6 @@ import com.ou.exception.IllegalStringException;
 import com.ou.exception.HasUserException;
 
 public interface UserService {
-
     /**
      * @param username 用户名
      * @param password 用户密码
@@ -20,4 +19,9 @@ public interface UserService {
      * @return 返回相应的用户名  如果找不到则返回空
      */
     User getUserByUsername(String username);
+
+    /**
+     * @return 通过shiro获取主键得到对象
+     */
+    User getUserByShiro();
 }

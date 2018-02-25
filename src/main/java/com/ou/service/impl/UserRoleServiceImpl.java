@@ -25,19 +25,15 @@ import java.util.List;
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
     @Autowired
+    UserRoleMapper userRoleMapper;
+    @Autowired
     UserService userService;
     @Autowired
     RoleService roleService;
-    @Autowired
-    UserRoleMapper userRoleMapper;
-    @Autowired
-    RoleMapper roleMapper;
 
     @Override
     public void renewal(RoleEnum roleEnum) {
-        Subject subject = SecurityUtils.getSubject();
-        User user = (User)subject.getPrincipal();
-
+        User user = userService.getUserByShiro();
         Role role = roleService.getRole(roleEnum);
         Integer uid = user.getUid();
         Integer rid = role.getRid();
@@ -72,9 +68,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public List<Role> listRole() {
-        Subject subject = SecurityUtils.getSubject();
-        User user = (User)subject.getPrincipal();
-
+        User user = userService.getUserByShiro();
         UserRoleExample example = new UserRoleExample();
         UserRoleExample.Criteria criteria = example.createCriteria();
         criteria.andUidEqualTo(user.getUid());
@@ -85,7 +79,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         for (UserRole ur : userRoles) {
             // 如果该角色没有过期 则加入角色列表
             if (ur.getExpireTime().compareTo(new Date()) > 0) {
-                Role userRole = roleMapper.selectByPrimaryKey(ur.getRid());
+                Role userRole = roleService.getRoleByPrimaryKey(ur.getRid());
                 result.add(userRole);
             }
         }

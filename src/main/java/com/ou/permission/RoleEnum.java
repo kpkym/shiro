@@ -7,5 +7,10 @@ package com.ou.permission;
  */
 public enum RoleEnum {
     vip,
-    svip
+    svip,
+    yellow,
+    green,
+    red,
+    blue,
+    black
 }
