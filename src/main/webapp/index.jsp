@@ -13,11 +13,11 @@
     <title>shiro-demo</title>
 </head>
 <body>
-Hello, <shiro:principal property="username"/>, how are you today?
 
 <div style="text-align: left">
-    <a href="">退出</a>
+    <a href="/logout">退出</a>
 </div>
+Hello, <shiro:principal property="username"/>!
 
 <h2>开通会员自动点亮前两个图标 || 开通超级会员全部点亮</h2>
 <table style="width: 100%">

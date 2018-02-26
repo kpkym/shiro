@@ -1,5 +1,6 @@
 package com.ou.bean;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -8,14 +9,40 @@ import java.util.Map;
  * time: 9:35
  */
 public class Msg {
+    /**
+     * code:0 成功  1:失败
+     */
     private int code;
     private Map<String, Object> content;
 
     public Msg() {
     }
 
-    public Msg(int code, Map<String, Object> content) {
+    /**
+     * @param code 0:成功  1:失败
+     */
+    public Msg(int code) {
         this.code = code;
+        content = new HashMap<>();
+    }
+
+    /**
+     * 在content中添加键值对
+     *
+     * @param key 键
+     * @param value 值
+     * @return 自身
+     */
+    public Msg add(String key, Object value) {
+        this.getContent().put(key, value);
+        return this;
+    }
+
+    public Map<String, Object> getContent() {
+        return content;
+    }
+
+    public void setContent(Map<String, Object> content) {
         this.content = content;
     }
 

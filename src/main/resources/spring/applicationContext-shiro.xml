@@ -24,7 +24,7 @@
                 /login = myauthc
                 /register = anon
                 /logout = logout
-                <!--/** = authc-->
+                /** = authc
             </value>
         </property>
     </bean>
