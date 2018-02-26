@@ -50,4 +50,6 @@
         <property name="hashAlgorithmName" value="md5" />
         <property name="hashIterations" value="2" />
     </bean>
+
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 </beans>

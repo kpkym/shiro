@@ -32,4 +32,20 @@
     <!--4.静态资源默认servlet配置 -->
     <!-- 1).加入对静态资源处理：js,gif,png 2).允许使用 "/" 做整体映射 -->
     <mvc:default-servlet-handler/>
+
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="defaultErrorView" value="error"/>
+        <property name="exceptionMappings">
+            <props>
+                <prop key="UnauthorizedException">nopermission</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 开启shiro注解支持 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
 </beans>
