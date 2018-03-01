@@ -22,6 +22,7 @@
         <property name="filterChainDefinitions">
             <value>
                 /login = myauthc
+                /register.jsp = anon
                 /register = anon
                 /logout = logout
                 /** = authc

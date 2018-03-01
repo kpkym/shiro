@@ -1,10 +1,17 @@
 package com.ou.shiro.bean;
 
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Null;
+
 public class User {
+    @Null
     private Integer uid;
 
+    @NotBlank
     private String username;
 
+    @NotBlank
     private String password;
 
     public Integer getUid() {

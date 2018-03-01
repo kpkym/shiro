@@ -37,7 +37,10 @@
         <property name="defaultErrorView" value="error"/>
         <property name="exceptionMappings">
             <props>
-                <prop key="UnauthorizedException">nopermission</prop>
+                <prop key="UnauthorizedException">error/nopermission</prop>
+                <prop key="HasUserException">error/hasUser</prop>
+                <prop key="IllegalStringException">error/stringErrpr</prop>
+                <prop key="Exception">error/error</prop>
             </props>
         </property>
     </bean>
