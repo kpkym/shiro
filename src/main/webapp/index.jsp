@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 
 <!doctype html>
@@ -15,14 +15,15 @@
 </head>
 <body>
 <div style="text-align: left">
-    <a href="/logout">退出</a>
+    <a href="logout">退出</a>
 </div>
 Hello, <shiro:principal property="username"/>!
 <h2>开通会员自动点亮前两个图标 || 开通超级会员全部点亮</h2>
+<h3>开通时间有效期为100秒</h3>
 <table style="width: 100%">
     <tr>
-        <td colspan="2"><a href=""><b>会员(15点)</b></a></td>
-        <td colspan="3"><a href=""><b>超级会员(30点)</b></a></td>
+        <td colspan="2"><a href=""><b>会员</b></a><shiro:hasRole name="vip">&nbsp;&nbsp;<span>已开通</span></shiro:hasRole></td>
+        <td colspan="3"><a href=""><b>超级会员</b></a><shiro:hasRole name="svip">&nbsp;&nbsp;<span>已开通</span></shiro:hasRole></td>
     </tr>
     <tr>
         <td>黄钻</td>
@@ -31,10 +32,10 @@ Hello, <shiro:principal property="username"/>!
         <td>蓝钻</td>
         <td>黑钻</td>
     </tr>
-    <tr height="300px">
+    <tr style="height: 300px">
         <shiro:hasPermission name="yellow:read">
             <td style="background-color: yellow">
-                <button onclick="get('yellow')">click</button>
+                <button onclick="get('yellow', permission)">click</button>
             </td>
         </shiro:hasPermission>
         <shiro:lacksPermission name="yellow:read">
@@ -42,7 +43,7 @@ Hello, <shiro:principal property="username"/>!
         </shiro:lacksPermission>
         <shiro:hasPermission name="green:read">
             <td style="background-color: green">
-                <button onclick="get('green')">click</button>
+                <button onclick="get('green', permission)">click</button>
             </td>
         </shiro:hasPermission>
         <shiro:lacksPermission name="green:read">
@@ -50,7 +51,7 @@ Hello, <shiro:principal property="username"/>!
         </shiro:lacksPermission>
         <shiro:hasPermission name="red:read">
             <td style="background-color: red">
-                <button onclick="get('red')">click</button>
+                <button onclick="get('red', permission)">click</button>
             </td>
         </shiro:hasPermission>
         <shiro:lacksPermission name="red:read">
@@ -58,7 +59,7 @@ Hello, <shiro:principal property="username"/>!
         </shiro:lacksPermission>
         <shiro:hasPermission name="blue:read">
             <td style="background-color: blue">
-                <button onclick="get('blue')">click</button>
+                <button onclick="get('blue', permission)">click</button>
             </td>
         </shiro:hasPermission>
         <shiro:lacksPermission name="blue:read">
@@ -66,7 +67,7 @@ Hello, <shiro:principal property="username"/>!
         </shiro:lacksPermission>
         <shiro:hasPermission name="black:read">
             <td style="background-color: black">
-                <button onclick="get('black')">click</button>
+                <button onclick="get('black', permission)">click</button>
             </td>
         </shiro:hasPermission>
         <shiro:lacksPermission name="black:read">
@@ -74,35 +75,35 @@ Hello, <shiro:principal property="username"/>!
         </shiro:lacksPermission>
     </tr>
     <tr>
-        <td><a href="">开通黄钻(10点)</a></td>
-        <td><a href="">开通绿钻(10点)</a></td>
-        <td><a href="">开通红钻(10点)</a></td>
-        <td><a href="">开通蓝钻(10点)</a></td>
-        <td><a href="">开通黑钻(10点)</a></td>
+        <td><a href="">开通黄钻</a></td>
+        <td><a href="">开通绿钻</a></td>
+        <td><a href="">开通红钻</a></td>
+        <td><a href="">开通蓝钻</a></td>
+        <td><a href="">开通黑钻</a></td>
     </tr>
 </table>
-
-<br/>
-
-当前拥有点数(0点):<input type="text"><a href="">充值</a>
-
 <script>
-    function get(permission) {
+    function get(url, func) {
         let xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-                // 如果没有权限会后台会抛异常
-                try {
-                    let data = JSON.parse(xmlhttp.responseText);
-                    alert("你有该权限");
-                } catch(err) {
-                    alert("你没有该权限");
-                }
-
+                func(xmlhttp);
             }
         };
-        xmlhttp.open("GET", permission, true);
+        xmlhttp.open("GET", url, true);
         xmlhttp.send();
+    }
+
+    function permission(xmlhttp) {
+        // 如果没有权限会后台会抛异常
+        try {
+            let data = JSON.parse(xmlhttp.responseText);
+            if (0 === data.code) {
+               alert("你有该权限");
+            }
+        } catch(err) {
+            alert("你没有该权限");
+        }
     }
 </script>
 </body>
