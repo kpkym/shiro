@@ -30,7 +30,7 @@
     </bean>
 
     <!--自定义form认证过滤器-->
-    <bean id="formAuthenticationFilter" class="com.ou.shiro.MyFormAuthenticationFilter" />
+    <bean id="formAuthenticationFilter" class="com.ou.shiro.reaml.MyFormAuthenticationFilter" />
 
     <!--securityManage-->
     <!-- 安全管理器 -->
@@ -40,7 +40,7 @@
     </bean>
 
     <!--自定义realm-->
-    <bean id="customRealm" class="com.ou.shiro.MyRealm">
+    <bean id="customRealm" class="com.ou.shiro.reaml.MyRealm">
         <!--将凭证匹配器设置到realm中，realm按照凭证匹配器要求进行散列-->
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
     </bean>

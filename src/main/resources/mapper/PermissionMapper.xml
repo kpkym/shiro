@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ou.dao.PermissionMapper">
-  <resultMap id="BaseResultMap" type="com.ou.bean.Permission">
+<mapper namespace="com.ou.shiro.dao.PermissionMapper">
+  <resultMap id="BaseResultMap" type="com.ou.shiro.bean.Permission">
     <id column="pid" jdbcType="INTEGER" property="pid" />
     <result column="permission" jdbcType="VARCHAR" property="permission" />
   </resultMap>
@@ -66,7 +66,7 @@
   <sql id="Base_Column_List">
     pid, permission
   </sql>
-  <select id="selectByExample" parameterType="com.ou.bean.PermissionExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.ou.shiro.bean.PermissionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -90,17 +90,17 @@
     delete from permission
     where pid = #{pid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.ou.bean.PermissionExample">
+  <delete id="deleteByExample" parameterType="com.ou.shiro.bean.PermissionExample">
     delete from permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.ou.bean.Permission">
+  <insert id="insert" parameterType="com.ou.shiro.bean.Permission">
     insert into permission (pid, permission)
     values (#{pid,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.ou.bean.Permission">
+  <insert id="insertSelective" parameterType="com.ou.shiro.bean.Permission">
     insert into permission
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pid != null">
@@ -119,7 +119,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.ou.bean.PermissionExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.ou.shiro.bean.PermissionExample" resultType="java.lang.Long">
     select count(*) from permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -147,7 +147,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ou.bean.Permission">
+  <update id="updateByPrimaryKeySelective" parameterType="com.ou.shiro.bean.Permission">
     update permission
     <set>
       <if test="permission != null">
@@ -156,7 +156,7 @@
     </set>
     where pid = #{pid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ou.bean.Permission">
+  <update id="updateByPrimaryKey" parameterType="com.ou.shiro.bean.Permission">
     update permission
     set permission = #{permission,jdbcType=VARCHAR}
     where pid = #{pid,jdbcType=INTEGER}
