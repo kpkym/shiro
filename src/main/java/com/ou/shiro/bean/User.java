@@ -3,8 +3,9 @@ package com.ou.shiro.bean;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
     @Null
     private Integer uid;
 

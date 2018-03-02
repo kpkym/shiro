@@ -18,6 +18,8 @@ ${msg}
     <br />
     密码：<input type="text" name="password" />
     <br />
+    <label><input type="radio" name="rememberMe" value="true">记住我</label>
+    <br />
     <input type="submit"/>
     <br>
     <a href="register.jsp">注册页面</a>
