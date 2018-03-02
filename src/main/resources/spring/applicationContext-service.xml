@@ -10,4 +10,7 @@
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+
+    <!--个人参数-->
+    <context:property-placeholder location="classpath:resource/permission_time.properties" ignore-unresolvable="true" />
 </beans>
