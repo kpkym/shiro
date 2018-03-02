@@ -10,6 +10,7 @@ import com.ou.shiro.service.RoleService;
 import com.ou.shiro.service.UserRoleService;
 import com.ou.shiro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +32,12 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Autowired
     RoleService roleService;
 
+    /**
+     * 每次开通增加权限的秒数
+     */
+    @Value("${permission.time}")
+    Integer increTime;
+
     @Override
     public void renewal(RoleEnum roleEnum) {
         User user = userService.getUserByShiro();
@@ -44,22 +51,18 @@ public class UserRoleServiceImpl implements UserRoleService {
         criteria.andRidEqualTo(rid);
 
         List<UserRole> userRoles = userRoleMapper.selectByExample(example);
-        // 如果没有此权限就插入
-        // 否则更新过期时间
+        // 如果没有此权限就插入    否则更新过期时间
         if (userRoles.size() == 0
                 || userRoles.get(0).getExpireTime().compareTo(new Date()) < 0) {
             insertUserRole(uid, rid);
             return;
         }
-
         // 否则更新此数据
         UserRole userRole = userRoles.get(0);
-
         Calendar calendar = Calendar.getInstance();
         // 设置原本过期时间
         calendar.setTime(userRole.getExpireTime());
-        // 过期时间在当前时间上增加100秒
-        calendar.add(Calendar.SECOND, 100);
+        calendar.add(Calendar.SECOND, increTime);
         Date expireTime = calendar.getTime();
         // 更新过期时间
         userRole.setExpireTime(expireTime);
@@ -86,16 +89,15 @@ public class UserRoleServiceImpl implements UserRoleService {
         return result;
     }
 
-    private int insertUserRole(Integer uid, Integer rid) {
+    private void insertUserRole(Integer uid, Integer rid) {
         Calendar calendar = Calendar.getInstance();
-        // 过期时间在当前时间上增加100秒
-        calendar.add(Calendar.SECOND, 100);
+        calendar.add(Calendar.SECOND, increTime);
         Date expireTime = calendar.getTime();
 
         UserRole userRole = new UserRole();
         userRole.setUid(uid);
         userRole.setRid(rid);
         userRole.setExpireTime(expireTime);
-        return userRoleMapper.insertSelective(userRole);
+        userRoleMapper.insertSelective(userRole);
     }
 }

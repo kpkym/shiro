@@ -3,8 +3,11 @@ package com.ou.shiro.controller;
 import com.ou.shiro.bean.User;
 import com.ou.shiro.exception.HasUserException;
 import com.ou.shiro.exception.IllegalStringException;
+import com.ou.shiro.permission.RoleEnum;
+import com.ou.shiro.service.UserRoleService;
 import com.ou.shiro.service.UserService;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -22,6 +25,8 @@ import javax.validation.Valid;
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    UserRoleService userRoleService;
 
     @RequestMapping("login")
     public void login(HttpServletRequest request) {
@@ -54,4 +59,10 @@ public class UserController {
         userService.register(user);
         return "login";
     }
+
+    @RequestMapping(value = "renewal")
+    public void renewal(RoleEnum role) {
+        userRoleService.renewal(role);
+    }
+
 }
