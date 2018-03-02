@@ -61,8 +61,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "renewal")
-    public void renewal(RoleEnum role) {
+    public String renewal(RoleEnum role) {
         userRoleService.renewal(role);
+        return "permission";
     }
 
 }

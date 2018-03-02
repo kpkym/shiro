@@ -1,10 +1,8 @@
 package com.ou.shiro.controller;
 
-import com.ou.shiro.bean.Msg;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author: kpkym
@@ -14,43 +12,36 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class PermissionController {
     @RequiresPermissions("yellow:read")
-    @ResponseBody
     @RequestMapping("yellow")
-    public Msg yellow() {
+    public String yellow() {
         return success();
     }
 
     @RequiresPermissions("green:read")
-    @ResponseBody
     @RequestMapping("green")
-    public Msg green() {
+    public String green() {
         return success();
     }
 
     @RequiresPermissions("red:read")
-    @ResponseBody
     @RequestMapping("red")
-    public Msg red() {
+    public String red() {
         return success();
     }
 
     @RequiresPermissions("blue:read")
-    @ResponseBody
     @RequestMapping("blue")
-    public Msg blue() {
+    public String blue() {
         return success();
     }
 
     @RequiresPermissions("black:read")
-    @ResponseBody
     @RequestMapping("black")
-    public Msg black() {
+    public String black() {
         return success();
     }
 
-    public Msg success() {
-        Msg msg = new Msg(0);
-        msg.add("msg", "OK");
-        return msg;
+    public String success() {
+        return "permission";
     }
 }
