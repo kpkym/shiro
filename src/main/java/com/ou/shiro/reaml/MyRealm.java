@@ -6,6 +6,7 @@ import com.ou.shiro.bean.User;
 import com.ou.shiro.service.RolePermissionService;
 import com.ou.shiro.service.UserRoleService;
 import com.ou.shiro.service.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -60,5 +61,10 @@ public class MyRealm extends AuthorizingRealm {
         }
 
         return authorizationInfo;
+    }
+
+    public void clearCache() {
+        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
+        super.clearCache(principals);
     }
 }

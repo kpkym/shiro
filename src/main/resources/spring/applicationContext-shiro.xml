@@ -46,6 +46,8 @@
         <property name="rememberMeManager" ref="rememberMeManager" />
         <!--会话管理器-->
         <property name="sessionManager" ref="sessionManager"/>
+        <!--缓存管理器-->
+        <!--<property name="cacheManager" ref="cacheManager" />-->
     </bean>
 
     <!--自定义realm-->
@@ -78,6 +80,11 @@
         <property name="name" value="rememberMe" />
         <!-- 记住我cookie生效时间120秒 -->
         <property name="maxAge" value="120" />
+    </bean>
+
+    <!-- 缓存管理器 -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"/>
     </bean>
 
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
