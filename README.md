@@ -1,7 +1,7 @@
 # shiro-demo
 该项目搭建了一个shiro常用结构
 
-![](http://www.yqplayer.com/netpicyd/46307ddb4057053788df34c50256f328.png)
+![](http://www.yqplayer.com/netpicyd/7d62513fc6d7e898a16c596e87d295cc.png)
 
 #主界面
 ![](http://www.yqplayer.com/netpicyd/eeed69e6fc9d7760c9dbf629c9e2ebc4.png)
