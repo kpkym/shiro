@@ -24,3 +24,5 @@
         <!-- 记住我cookie生效时间120秒 -->
         <property name="maxAge" value="120" />
     </bean>
+
+> 该项目不适用缓存管理器
