@@ -3,7 +3,16 @@ package com.ou.shiro.service;
 import com.ou.shiro.bean.User;
 import com.ou.shiro.exception.HasUserException;
 
+import java.util.List;
+
 public interface UserService {
+    /**
+     * 返回已注册用户
+     *
+     * @return
+     */
+    List<User> listUser();
+
     /**
      * @param user
      * @return

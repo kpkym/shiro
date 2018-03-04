@@ -16,6 +16,7 @@
 <body>
 <div style="text-align: left">
     <a href="logout">退出</a>
+    <a href="users">查看当前已注册用户信息</a>
 </div>
 Hello, <shiro:principal property="username"/>!
 <h2>开通会员自动点亮前两个图标 || 开通超级会员全部点亮</h2>

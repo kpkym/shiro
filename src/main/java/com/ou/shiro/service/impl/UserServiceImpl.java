@@ -19,6 +19,11 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
+    public List<User> listUser() {
+        return userMapper.selectByExample(null);
+    }
+
+    @Override
     public int register(User user) throws HasUserException {
         if (getUserByUsername(user.getUsername()) != null) {
             throw new HasUserException("已存在当前用户名");

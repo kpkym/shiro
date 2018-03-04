@@ -12,6 +12,8 @@
 </head>
 <body>
 <h1>登录页面</h1>
+<a href="users">查看当前已注册用户信息</a>
+<br>
 ${msg}
 <form action="login" method="post">
     账号：<input type="text" name="username" />

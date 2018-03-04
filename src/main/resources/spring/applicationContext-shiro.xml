@@ -27,6 +27,7 @@
                 /register.jsp = anon
                 /register = anon
                 /captcha.jsp = anon
+                /users = anon
                 / = user
                 /index.jsp = user
                 /logout = logout

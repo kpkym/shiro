@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author: kpkym
@@ -72,5 +73,12 @@ public class UserController {
     public String renewal(RoleEnum role) {
         userRoleService.renewal(role);
         return "permission";
+    }
+
+    @RequestMapping("users")
+    public String list(Model model) {
+        List<User> users = userService.listUser();
+        model.addAttribute("users", users);
+        return "users";
     }
 }
