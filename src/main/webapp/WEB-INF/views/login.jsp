@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>登录</title>
@@ -13,12 +13,16 @@
 <body>
 <h1>登录页面</h1>
 ${msg}
-<form action="/login" method="post">
+<form action="login" method="post">
     账号：<input type="text" name="username" />
     <br />
     密码：<input type="text" name="password" />
     <br />
-    <label><input type="radio" name="rememberMe" value="true">记住我</label>
+    验证：<input type="text" name="captcha"/>
+    <br />
+    <img src="captcha.jsp" onclick="this.src='/captcha.jsp?' + Math.random()"/>
+    <br />
+    <label><input type="checkbox" name="rememberMe" value="true">记住我</label>
     <br />
     <input type="submit"/>
     <br>

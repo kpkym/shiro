@@ -5,6 +5,6 @@
 </head>
 <body>
 <h1>你有此权限</h1>
-<a href="/">首页</a>
+<a href="index.jsp">首页</a>
 </body>
 </html>

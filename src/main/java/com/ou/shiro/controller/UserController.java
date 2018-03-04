@@ -10,10 +10,13 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -52,9 +55,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "register")
-    public String register(@Valid User user, BindingResult result) throws IllegalStringException, HasUserException {
+    public String register(Model model, HttpSession session, String captcha, @Valid User user, BindingResult result) throws IllegalStringException, HasUserException {
         if (result.hasErrors()) {
             throw new IllegalStringException("非法输入");
+        }
+        // 检查验证码
+        if (StringUtils.isEmpty(captcha) || !captcha.equals(session.getAttribute("captcha").toString())) {
+            model.addAttribute("msg", "验证码错误");
+            return "error/error";
         }
         userService.register(user);
         return "login";
@@ -65,5 +73,4 @@ public class UserController {
         userRoleService.renewal(role);
         return "permission";
     }
-
 }

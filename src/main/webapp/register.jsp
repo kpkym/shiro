@@ -18,6 +18,10 @@ ${msg}
     <br />
     密码：<input type="text" name="password"/>
     <br />
+    验证：<input type="text" name="captcha"/>
+    <br />
+    <img src="captcha.jsp" onclick="this.src='captcha.jsp?' + Math.random()"/>
+    <br />
     <input type="submit"/>
     <br>
     <a href="login">登录页面</a>
