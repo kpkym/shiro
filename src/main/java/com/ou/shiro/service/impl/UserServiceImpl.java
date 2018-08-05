@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
         if (getUserByUsername(user.getUsername()) != null) {
             throw new HasUserException("已存在当前用户名");
         }
-        String md5hash = new Md5Hash(user.getPassword(), user.getPassword(), 2).toString();
+        String md5hash = new Md5Hash(user.getPassword(), user.getUsername(), 2).toString();
         User u = new User();
         u.setUsername(user.getUsername());
         u.setPassword(md5hash);
@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByShiro() {
         Subject subject = SecurityUtils.getSubject();
-        User user = (User)subject.getPrincipal();
-        return user;
+        return (User)subject.getPrincipal();
     }
 }
