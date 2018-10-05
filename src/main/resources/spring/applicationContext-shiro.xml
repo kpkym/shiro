@@ -8,22 +8,16 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <!--loginUrl认证地址,如果没有认证将会请求地址进行认证,请求此地址将由formAuthenticationFilter进行表单验证-->
-        <property name="loginUrl" value="/login"/>
+        <property name="loginUrl" value="/login.jsp"/>
         <!--登录成功跳转页面  不配置的话 默认返回登录前页面-->
         <property name="successUrl" value="/"/>
         <!--没有权限时跳转页面-->
         <property name="unauthorizedUrl" value="/refuse.jsp"/>
-        <!--自定义filter-->
-        <property name="filters">
-            <map>
-                <!-- 将自定义的FormAuthenticationFilter注入shiroFiler中 -->
-                <entry key="myauthc" value-ref="formAuthenticationFilter" />
-            </map>
-        </property>
         <!--过滤连定义, 从上往下顺序执行,一般将/**放在最下面-->
         <property name="filterChainDefinitions">
             <value>
-                /login = myauthc
+                /login = anon
+                /login.jsp = anon
                 /register.jsp = anon
                 /register = anon
                 /captcha.jsp = anon
@@ -35,9 +29,6 @@
             </value>
         </property>
     </bean>
-
-    <!--自定义form认证过滤器-->
-    <bean id="formAuthenticationFilter" class="com.ou.shiro.reaml.MyFormAuthenticationFilter" />
 
     <!--securityManage-->
     <!-- 安全管理器 -->
